@@ -2,11 +2,14 @@ import 'dart:developer'; // Add this import for using the log function
 
 import 'package:api_handling_dio/data/models/post_model.dart';
 import 'package:api_handling_dio/data/repositories/post_repositories.dart';
+import 'package:api_handling_dio/logic/Cubit/post_cubit/post_cubit.dart';
 import 'package:api_handling_dio/presentation/screens/home_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 void main() async {
-  WidgetsFlutterBinding.ensureInitialized(); // Add this line to ensure Flutter is properly initialized
+  WidgetsFlutterBinding
+      .ensureInitialized(); // Add this line to ensure Flutter is properly initialized
   PostRepository postRepository = PostRepository();
   List<PostModel> postModels = await postRepository.fetchPosts();
   log(postModels.toString());
@@ -19,9 +22,12 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: HomeScreen(),
+    return BlocProvider(
+      create: (context) => PostCubit(),
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        home: HomeScreen(),
+      ),
     );
   }
 }
