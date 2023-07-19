@@ -4,7 +4,9 @@ import 'package:api_handling_dio/logic/Cubit/post_cubit/post_state.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class PostCubit extends Cubit<PostState> {
-  PostCubit() : super(PostLoadingState());
+  PostCubit() : super(PostLoadingState()) {
+    fetchPosts();
+  }
 
   PostRepository postRepository = PostRepository();
 
